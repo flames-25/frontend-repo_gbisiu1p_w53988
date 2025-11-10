@@ -1,21 +1,24 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import NavBar from './components/NavBar';
 import HeroIntro from './components/HeroIntro';
 import MacbookExperience from './components/MacbookExperience';
-import NavBar from './components/NavBar';
-import Footer from './components/Footer';
+import ProjectsShowcase from './components/ProjectsShowcase';
 
 function App() {
   const [entered, setEntered] = useState(false);
 
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-black text-white">
       <NavBar />
+
       {!entered ? (
         <HeroIntro onEnter={() => setEntered(true)} />
       ) : (
-        <MacbookExperience show={entered} name="Your Name" />
+        <>
+          <MacbookExperience />
+          <ProjectsShowcase />
+        </>
       )}
-      <Footer />
     </div>
   );
 }

@@ -1,80 +1,63 @@
-import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Cpu, Code2, Palette, Database } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Code2, Cpu, Database, Palette } from 'lucide-react';
 
 const skills = [
-  { icon: <Code2 className="w-6 h-6" />, label: 'Frontend' },
-  { icon: <Database className="w-6 h-6" />, label: 'Backend' },
-  { icon: <Cpu className="w-6 h-6" />, label: 'Systems' },
-  { icon: <Palette className="w-6 h-6" />, label: 'Design' },
+  { label: 'Frontend', icon: Code2 },
+  { label: 'Backend', icon: Database },
+  { label: 'Systems', icon: Cpu },
+  { label: 'Design', icon: Palette },
 ];
 
-const DockItem = ({ icon, label }) => (
-  <motion.div
-    whileHover={{ y: -10, scale: 1.1 }}
-    className="flex flex-col items-center"
-  >
-    <div className="rounded-2xl bg-white/80 text-gray-900 p-3 shadow-xl backdrop-blur-md">
-      {icon}
-    </div>
-    <span className="mt-2 text-xs text-white/80">{label}</span>
-  </motion.div>
-);
-
-const MacbookExperience = ({ show, name = 'Your Name' }) => {
+export default function MacbookExperience() {
   return (
-    <AnimatePresence>
-      {show && (
-        <section className="min-h-screen w-full bg-gradient-to-b from-slate-900 to-black text-white flex items-center justify-center p-6">
+    <section className="relative min-h-screen bg-[#0a0114] text-white flex items-center justify-center px-4">
+      <div className="w-full max-w-5xl mx-auto">
+        <motion.div
+          initial={{ rotateX: 65, y: 60, opacity: 0 }}
+          animate={{ rotateX: 0, y: 0, opacity: 1 }}
+          transition={{ type: 'spring', stiffness: 80, damping: 16 }}
+          className="relative mx-auto w-full max-w-3xl perspective-[1200px]"
+        >
+          {/* Top (screen) */}
           <motion.div
-            initial={{ rotateX: 65, y: 80, opacity: 0 }}
-            animate={{ rotateX: 0, y: 0, opacity: 1 }}
-            exit={{ rotateX: 45, y: 60, opacity: 0 }}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="relative w-full max-w-5xl"
+            initial={{ rotateX: 65 }}
+            animate={{ rotateX: 0 }}
+            transition={{ type: 'spring', stiffness: 90, damping: 16, delay: 0.15 }}
+            className="relative h-72 md:h-96 rounded-xl border border-white/15 bg-gradient-to-b from-[#0f0a1a] to-[#120b20] shadow-2xl overflow-hidden"
+            style={{ transformOrigin: 'bottom center' }}
           >
-            {/* Macbook Base */}
-            <div className="relative mx-auto h-[420px] w-full rounded-3xl bg-gradient-to-br from-neutral-800 to-neutral-900 shadow-2xl ring-1 ring-white/10">
-              {/* Screen */}
-              <motion.div
-                initial={{ scaleY: 0.05, transformOrigin: 'bottom' }}
-                animate={{ scaleY: 1 }}
-                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-                className="absolute left-6 right-6 top-6 bottom-28 rounded-2xl bg-neutral-950 border border-white/10 overflow-hidden"
-              >
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(56,189,248,0.25),transparent_40%),radial-gradient(ellipse_at_bottom_right,rgba(167,139,250,0.25),transparent_40%)]" />
-                <div className="relative z-10 h-full w-full flex items-center justify-center">
-                  <div className="text-center">
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">{name}</h2>
-                    <p className="mt-3 text-white/70 max-w-md mx-auto">Developer • Designer • Engineer</p>
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* Keyboard area */}
-              <div className="absolute left-0 right-0 bottom-0 h-28">
-                <div className="mx-8 h-full rounded-t-2xl bg-gradient-to-b from-neutral-800 to-neutral-900 border-t border-white/10" />
-              </div>
-
-              {/* Dock with skills */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1, duration: 0.6 }}
-                className="absolute bottom-6 left-0 right-0 flex justify-center"
-              >
-                <div className="flex items-end gap-6 rounded-3xl bg-white/10 p-4 backdrop-blur-md border border-white/10 shadow-lg">
-                  {skills.map((s) => (
-                    <DockItem key={s.label} icon={s.icon} label={s.label} />
-                  ))}
-                </div>
-              </motion.div>
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(168,85,247,0.25),transparent_60%)]" />
+            <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
+              <h2 className="text-2xl md:text-4xl font-bold bg-gradient-to-b from-purple-300 to-purple-600 bg-clip-text text-transparent">
+                Your Name
+              </h2>
+              <p className="mt-2 text-sm md:text-base text-white/80">Projects and experiments in web, 3D, and systems.</p>
             </div>
           </motion.div>
-        </section>
-      )}
-    </AnimatePresence>
-  );
-};
 
-export default MacbookExperience;
+          {/* Bottom (keyboard base) */}
+          <div className="relative -mt-2 h-6 md:h-8 rounded-b-xl bg-gradient-to-b from-[#1a1328] to-[#0b0712] border-x border-b border-white/15" />
+        </motion.div>
+
+        {/* Dock */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className="mx-auto mt-8 flex items-end justify-center gap-4"
+        >
+          <div className="flex gap-4 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md px-4 py-3">
+            {skills.map(({ label, icon: Icon }) => (
+              <div key={label} className="group flex flex-col items-center">
+                <div className="grid place-items-center h-12 w-12 rounded-xl bg-gradient-to-br from-purple-600/30 via-fuchsia-500/20 to-indigo-500/20 border border-white/10 text-purple-200 shadow-[0_8px_30px_rgba(168,85,247,0.25)] group-hover:scale-105 transition">
+                  <Icon />
+                </div>
+                <span className="mt-1 text-xs text-white/75">{label}</span>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}

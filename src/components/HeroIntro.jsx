@@ -1,42 +1,53 @@
-import React from 'react';
 import Spline from '@splinetool/react-spline';
 import { motion } from 'framer-motion';
 
-const HeroIntro = ({ onEnter }) => {
+export default function HeroIntro({ onEnter }) {
   return (
-    <section className="relative h-screen w-full overflow-hidden bg-black text-white">
-      {/* 3D Scene */}
+    <section className="relative min-h-screen w-full bg-[#0a0114] overflow-hidden">
+      {/* Spline brain scene */}
       <div className="absolute inset-0">
-        <Spline scene="https://prod.spline.design/VJLoxp84lCdVfdZu/scene.splinecode" style={{ width: '100%', height: '100%' }} />
+        <Spline
+          scene="https://prod.spline.design/pDXeCthqjmzYX5Zk/scene.splinecode"
+          style={{ width: '100%', height: '100%' }}
+        />
       </div>
 
-      {/* Gradient overlays that do not block interaction */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/70" />
+      {/* Purple radial glow overlay - allow clicks to pass through */}
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(168,85,247,0.15),transparent_60%)]" />
 
-      {/* Centered name and CTA */}
-      <div className="relative z-10 flex h-full w-full items-center justify-center">
-        <motion.button
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen text-center px-6">
+        <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
-          onClick={onEnter}
-          className="group rounded-full border border-white/20 bg-white/5 px-10 py-6 backdrop-blur-md transition hover:bg-white/10"
+          transition={{ duration: 0.8 }}
+          className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight bg-gradient-to-b from-purple-300 to-purple-600 text-transparent bg-clip-text drop-shadow-[0_2px_30px_rgba(168,85,247,0.35)]"
         >
-          <div className="flex flex-col items-center">
-            <motion.h1
-              className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight"
-              initial={{ letterSpacing: '0.25em' }}
-              animate={{ letterSpacing: '0.02em' }}
-              transition={{ duration: 1.2, ease: 'easeOut' }}
-            >
-              Your Name
-            </motion.h1>
-            <span className="mt-2 text-sm sm:text-base text-white/70">Click to enter</span>
-          </div>
+          Your Name
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.1 }}
+          className="mt-4 max-w-2xl text-purple-100/80"
+        >
+          Building delightful interfaces with React, 3D visuals, and smooth motion.
+        </motion.p>
+
+        <motion.button
+          onClick={onEnter}
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.98 }}
+          transition={{ duration: 0.4 }}
+          className="mt-10 inline-flex items-center gap-3 rounded-full px-6 py-3 text-white bg-gradient-to-r from-purple-500 to-fuchsia-500 shadow-[0_0_40px_rgba(168,85,247,0.35)] border border-white/10"
+        >
+          Enter Projects
         </motion.button>
       </div>
+
+      {/* bottom gradient fade */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-[#0a0114] to-transparent" />
     </section>
   );
-};
-
-export default HeroIntro;
+}
